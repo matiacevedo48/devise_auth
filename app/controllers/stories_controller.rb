@@ -12,6 +12,10 @@ class StoriesController < ApplicationController
   def show
   end
 
+  def my_stories
+    @stories = Story.where(user_id: current_user.id)
+  end
+
   # GET /stories/new
   def new
     @story = Story.new
@@ -24,8 +28,8 @@ class StoriesController < ApplicationController
   # POST /stories
   # POST /stories.json
   def create
-    @story = Story.new(story_params)
-
+    @story = Story.new(story_params.merge(user_id:current_user.id))
+    @story.user_id = current_user.id
     respond_to do |format|
       if @story.save
         format.html { redirect_to @story, notice: 'Story was successfully created.' }
