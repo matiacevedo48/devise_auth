@@ -26,6 +26,7 @@ class StoriesController < ApplicationController
   end
 
   # POST /stories
+  
   # POST /stories.json
   def create
     @story = Story.new(story_params.merge(user_id:current_user.id))
